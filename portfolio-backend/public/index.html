@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nizari Mohamed Iddi | Full Stack Developer</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+  
+  * {
+    scroll-behavior: smooth;
+  }
+  
+  body { 
+    background: #020617;
+    color: #e5e7eb; 
+    font-family: 'Inter', sans-serif;
+    position: relative;
+    overflow-x: hidden;
+  }
+  
+  /* Animated background particles */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 20% 50%, rgba(6, 182, 212, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.05) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  
+  a {
+    transition: all 0.3s ease;
+  }
+  
+  a:hover {
+    color: #06b6d4;
+  }
+  
+  /* Glass morphism effect */
+  .glass {
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(148, 163, 184, 0.1);
+  }
+  
+  /* Gradient text */
+  .gradient-text {
+    background: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  /* Animated gradient border */
+  @keyframes rotate-gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
+  .animated-border {
+    position: relative;
+    background: linear-gradient(135deg, #1e293b, #0f172a);
+  }
+  
+  .animated-border::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(45deg, #06b6d4, #8b5cf6, #ec4899, #06b6d4);
+    background-size: 300% 300%;
+    border-radius: inherit;
+    z-index: -1;
+    animation: rotate-gradient 3s ease infinite;
+  }
+  
+  /* Floating animation */
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+  
+  .float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  /* Fade in animations */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .fade-in {
+    animation: fadeInUp 0.8s ease forwards;
+    opacity: 0;
+  }
+  
+  /* Card hover effects */
+  .card-hover {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .card-hover::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.15), transparent);
+    transition: left 0.6s ease;
+  }
+  
+  .card-hover:hover::after {
+    left: 100%;
+  }
+  
+  .card-hover:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 50px rgba(6, 182, 212, 0.3);
+  }
+  
+  /* Shimmer effect */
+  @keyframes shimmer {
+    0% { background-position: -1000px 0; }
+    100% { background-position: 1000px 0; }
+  }
+  
+  .shimmer-bg {
+    background: linear-gradient(90deg, 
+      rgba(6, 182, 212, 0.05) 0%, 
+      rgba(139, 92, 246, 0.05) 50%, 
+      rgba(6, 182, 212, 0.05) 100%);
+    background-size: 1000px 100%;
+    animation: shimmer 3s infinite linear;
+  }
+  
+  /* Badge pulse */
+  @keyframes pulse-glow {
+    0%, 100% { 
+      opacity: 1;
+      box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
+    }
+    50% { 
+      opacity: 0.8;
+      box-shadow: 0 0 30px rgba(6, 182, 212, 0.5);
+    }
+  }
+  
+  .pulse-glow {
+    animation: pulse-glow 3s ease-in-out infinite;
+  }
+  
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #0f172a;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #06b6d4, #8b5cf6);
+    border-radius: 5px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #0891b2, #7c3aed);
+  }
+</style>
+</head>
+<body class="relative">
+
+<!-- NAVIGATION -->
+<nav class="p-6 bg-slate-900/95 backdrop-blur-lg sticky top-0 flex justify-between items-center z-50 shadow-2xl border-b border-slate-800/50">
+  <span class="font-bold text-2xl gradient-text">NMI</span>
+  <div class="space-x-8 text-gray-400 font-semibold">
+    <a href="#about" class="hover:text-cyan-400 transition-all duration-300 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-gradient-to-r after:from-cyan-400 after:to-purple-500 after:transition-all after:duration-300 hover:after:w-full">About</a>
+    <a href="#skills" class="hover:text-cyan-400 transition-all duration-300 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-gradient-to-r after:from-cyan-400 after:to-purple-500 after:transition-all after:duration-300 hover:after:w-full">Skills</a>
+    <a href="#projects" class="hover:text-cyan-400 transition-all duration-300 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-gradient-to-r after:from-cyan-400 after:to-purple-500 after:transition-all after:duration-300 hover:after:w-full">Projects</a>
+    <a href="#experience" class="hover:text-cyan-400 transition-all duration-300 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-gradient-to-r after:from-cyan-400 after:to-purple-500 after:transition-all after:duration-300 hover:after:w-full">Experience</a>
+    <a href="#contact" class="hover:text-cyan-400 transition-all duration-300 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-gradient-to-r after:from-cyan-400 after:to-purple-500 after:transition-all after:duration-300 hover:after:w-full">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="container mx-auto px-6 py-20 flex flex-col md:flex-row items-center gap-12">
+  <div class="md:w-1/2 fade-in space-y-6">
+    <span id="heroBadge" class="inline-block px-4 py-2 rounded-full border border-cyan-400/50 text-cyan-400 text-sm font-semibold pulse-glow"></span>
+    <h1 id="heroTitle" class="text-6xl md:text-7xl font-black leading-tight gradient-text"></h1>
+    <p id="heroSubtitle" class="text-gray-400 mb-6 text-xl leading-relaxed"></p>
+    <div class="flex gap-4 flex-wrap pt-4">
+      <a href="#projects" class="px-8 py-4 rounded-xl font-bold text-black bg-gradient-to-r from-cyan-400 to-cyan-500 shadow-lg hover:shadow-cyan-500/50 transform hover:scale-105 hover:-translate-y-1 transition-all duration-300">
+        View My Work
+      </a>
+      <a href="#contact" class="px-8 py-4 rounded-xl font-bold glass border border-gray-400/30 hover:border-cyan-400 hover:bg-slate-800/70 transition-all duration-300">
+        Contact Me
+      </a>
+    </div>
+  </div>
+  <div class="md:w-1/2 fade-in float">
+    <div class="glass animated-border p-10 rounded-3xl shadow-2xl space-y-6 relative overflow-hidden">
+      <div class="absolute inset-0 shimmer-bg opacity-30"></div>
+      <div class="relative z-10">
+        <div class="grid grid-cols-2 gap-6">
+          <div class="space-y-2">
+            <p class="text-xs text-gray-500 uppercase tracking-widest font-semibold">Location</p>
+            <p class="text-lg font-bold text-cyan-400">Tanzania</p>
+          </div>
+          <div class="space-y-2">
+            <p class="text-xs text-gray-500 uppercase tracking-widest font-semibold">Focus</p>
+            <p class="text-lg font-bold text-cyan-400">Backend & Systems</p>
+          </div>
+        </div>
+        
+        <div class="pt-6 border-t border-slate-700/50 mt-6">
+          <p class="text-xs text-gray-500 uppercase tracking-widest mb-3 font-semibold">Primary Stack</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-4 py-2 bg-slate-900/70 rounded-lg text-sm text-cyan-400 border border-cyan-500/40 hover:border-cyan-400 hover:bg-slate-900 transition-all duration-300 hover:scale-105">Node.js</span>
+            <span class="px-4 py-2 bg-slate-900/70 rounded-lg text-sm text-cyan-400 border border-cyan-500/40 hover:border-cyan-400 hover:bg-slate-900 transition-all duration-300 hover:scale-105">Express</span>
+            <span class="px-4 py-2 bg-slate-900/70 rounded-lg text-sm text-cyan-400 border border-cyan-500/40 hover:border-cyan-400 hover:bg-slate-900 transition-all duration-300 hover:scale-105">MySQL</span>
+            <span class="px-4 py-2 bg-slate-900/70 rounded-lg text-sm text-cyan-400 border border-cyan-500/40 hover:border-cyan-400 hover:bg-slate-900 transition-all duration-300 hover:scale-105">Python</span>
+          </div>
+        </div>
+        
+        <div class="pt-6 mt-6">
+          <a id="heroGithub" href="" target="_blank" class="flex items-center gap-3 text-cyan-400 hover:text-cyan-300 transition-all duration-300 group">
+            <div class="p-2 rounded-lg bg-slate-900/50 group-hover:bg-slate-900 transition-all duration-300">
+              <svg class="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+              </svg>
+            </div>
+            <span class="font-semibold"></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- SKILLS -->
+<section id="skills" class="container mx-auto px-6 py-20">
+  <div class="text-center mb-16 fade-in">
+    <h2 class="text-5xl md:text-6xl font-black mb-4 gradient-text">Technical Skills</h2>
+    <p class="text-xl text-gray-400 max-w-2xl mx-auto">Technologies and concepts I use to design, build, and maintain scalable software systems.</p>
+  </div>
+  <div id="skillsGrid" class="grid gap-8 md:grid-cols-2 lg:grid-cols-3"></div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="container mx-auto px-6 py-20">
+  <div class="text-center mb-16 fade-in">
+    <h2 class="text-5xl md:text-6xl font-black mb-4 gradient-text">Selected Projects</h2>
+    <p class="text-xl text-gray-400 max-w-2xl mx-auto">A selection of my latest projects demonstrating full stack and data-driven solutions.</p>
+  </div>
+  <div id="projectsGrid" class="grid gap-10 md:grid-cols-2 lg:grid-cols-3"></div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="container mx-auto px-6 py-20">
+  <div class="text-center mb-16 fade-in">
+    <h2 class="text-5xl md:text-6xl font-black mb-4 gradient-text">Education & Experience</h2>
+    <p class="text-xl text-gray-400 max-w-2xl mx-auto">Academic background and hands-on learning experience.</p>
+  </div>
+  <div id="timeline" class="space-y-8 max-w-4xl mx-auto"></div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="container mx-auto px-6 py-20">
+  <div class="max-w-3xl mx-auto text-center glass animated-border p-16 rounded-3xl shadow-2xl relative overflow-hidden fade-in">
+    <div class="absolute inset-0 shimmer-bg opacity-20"></div>
+    <div class="relative z-10">
+      <h2 class="text-5xl md:text-6xl font-black mb-6 gradient-text">Let's Connect</h2>
+      <p class="text-xl text-gray-400 mb-12">Interested in collaboration, internships, or junior roles? Let's talk.</p>
+      <div class="space-y-6">
+        <div class="flex items-center justify-center gap-4 text-lg group">
+          <div class="p-3 rounded-lg bg-slate-900/50 group-hover:bg-slate-900 transition-all duration-300">
+            <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+          </div>
+          <a id="contactEmail" href="mailto:" class="text-cyan-400 hover:text-cyan-300 font-semibold transition-colors"></a>
+        </div>
+        
+        <div class="flex items-center justify-center gap-4 text-lg group">
+          <div class="p-3 rounded-lg bg-slate-900/50 group-hover:bg-slate-900 transition-all duration-300">
+            <svg class="w-6 h-6 text-cyan-400" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+          </div>
+          <a id="contactGithub" href="" target="_blank" class="text-cyan-400 hover:text-cyan-300 font-semibold transition-colors"></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="text-center py-16 text-gray-400 border-t border-gray-800/50">
+  <p class="text-lg">© <span id="year"></span> Nizari Mohamed Iddi</p>
+  <p class="text-sm mt-2 text-gray-500">Full Stack Developer • Backend Specialist</p>
+</footer>
+
+<!-- SCRIPTS -->
+<script>
+const API_BASE = 'http://localhost:5000/api';
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// HERO
+async function loadHero() {
+  const res = await fetch(`${API_BASE}/hero`);
+  const hero = await res.json();
+  document.getElementById('heroBadge').textContent = hero.badge;
+  document.getElementById('heroTitle').textContent = hero.title;
+  document.getElementById('heroSubtitle').textContent = hero.subtitle;
+  const githubLink = document.getElementById('heroGithub');
+  githubLink.href = hero.github_url;
+  githubLink.querySelector('span').textContent = hero.github_url;
+}
+
+// SKILLS
+async function loadSkills() {
+  const res = await fetch(`${API_BASE}/skills`);
+  const skills = await res.json();
+  const container = document.getElementById('skillsGrid');
+  container.innerHTML = '';
+  skills.forEach(s => {
+    const div = document.createElement('div');
+    div.className = 'glass p-8 rounded-2xl shadow-xl card-hover border border-slate-700/50 relative overflow-hidden group';
+    div.innerHTML = `
+      <div class="absolute inset-0 shimmer-bg opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
+      <div class="relative z-10">
+        <div class="flex items-center gap-4 mb-4">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500 to-purple-500 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-cyan-400">${s.category}</h3>
+        </div>
+        <p class="text-gray-400 leading-relaxed">${s.description}</p>
+      </div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+// PROJECTS (Latest 5)
+async function loadProjects() {
+  const res = await fetch(`${API_BASE}/projects`);
+  const projects = await res.json();
+  const latestProjects = projects.slice(-5).reverse();
+  const container = document.getElementById('projectsGrid');
+  container.innerHTML = '';
+  latestProjects.forEach(p => {
+    const div = document.createElement('div');
+    div.className = 'glass rounded-3xl shadow-xl card-hover border border-slate-700/50 overflow-hidden group';
+    div.innerHTML = `
+      <div class="relative overflow-hidden">
+        <img src="${p.thumbnail_url}" alt="${p.title}" class="w-full h-56 object-cover transition-transform duration-500 group-hover:scale-110" />
+        <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent opacity-60"></div>
+      </div>
+      <div class="p-8 relative">
+        <h3 class="text-2xl font-bold mb-3 text-cyan-400">${p.title}</h3>
+        <div class="flex flex-wrap gap-2 mb-4">
+          ${p.tech_stack.split(',').map(tech => `
+            <span class="px-3 py-1 bg-slate-900/50 rounded-lg text-xs text-gray-300 border border-slate-700/50 hover:border-cyan-500/50 transition-colors">${tech.trim()}</span>
+          `).join('')}
+        </div>
+        <p class="text-gray-400 mb-6 leading-relaxed">${p.description}</p>
+        <div class="flex gap-4">
+          <a href="${p.github_url}" class="flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800/70 hover:bg-slate-700 text-cyan-400 font-medium transition-all duration-300 group/btn">
+            <svg class="w-4 h-4 group-hover/btn:rotate-12 transition-transform" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+            GitHub
+          </a>
+          <a href="${p.live_url}" class="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-white font-medium transition-all duration-300 hover:scale-105">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+            </svg>
+            Live Demo
+          </a>
+        </div>
+      </div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+// EXPERIENCE
+async function loadExperienceAndContact() {
+  // Experience
+  const expRes = await fetch(`${API_BASE}/experience`);
+  const experienceData = await expRes.json();
+  const container = document.getElementById('timeline');
+  container.innerHTML = '';
+  experienceData.forEach(item => {
+    const div = document.createElement('div');
+    div.className = 'mb-8 border-l-2 border-cyan-500 pl-6 relative';
+    div.innerHTML = `
+      <span class="absolute -left-4 top-0 w-3 h-3 rounded-full bg-cyan-500"></span>
+      <h4 class="text-xl font-bold text-cyan-400">${item.title}</h4>
+      <p class="text-gray-400 mt-2">${item.description}</p>
+    `;
+    container.appendChild(div);
+  });
+
+  // Contact
+  const contactRes = await fetch(`${API_BASE}/contact`);
+  const contact = await contactRes.json();
+  const emailLink = document.getElementById('contactEmail');
+  emailLink.textContent = contact.email;
+  emailLink.href = `mailto:${contact.email}`;
+  const githubLink = document.getElementById('contactGithub');
+  githubLink.textContent = contact.github_url;
+  githubLink.href = contact.github_url;
+}
+
+// INITIALIZE
+loadHero();
+loadSkills();
+loadProjects();
+loadExperienceAndContact();
+</script>
+
+</body>
+</html>

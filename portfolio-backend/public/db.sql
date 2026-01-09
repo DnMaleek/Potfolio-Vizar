@@ -82,6 +82,28 @@ CREATE TABLE contact (
   github_url VARCHAR(255)
 );
 
+-- ===== ABOUT PAGE =====
+CREATE TABLE IF NOT EXISTS about (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  story TEXT NOT NULL,
+  what_i_do TEXT NOT NULL,
+  years_learning VARCHAR(10) DEFAULT '2+',
+  projects_built VARCHAR(10) DEFAULT '10+',
+  technologies VARCHAR(10) DEFAULT '5+',
+  learning_mode VARCHAR(10) DEFAULT '24/7'
+);
+
+-- Insert default about content
+INSERT INTO about (story, what_i_do, years_learning, projects_built, technologies, learning_mode)
+VALUES (
+  'I''m a passionate full-stack developer based in Tanzania with a strong focus on backend development and systems architecture. My journey into tech started with a curiosity about how things work behind the scenes. What drives me is the challenge of building scalable, efficient systems that solve real-world problems. I believe in writing clean, maintainable code and constantly learning new technologies.',
+  'Backend Development: Building robust APIs, database architecture, and server-side logic using Node.js, Express, and MySQL.|Full-Stack Projects: Creating end-to-end web applications with modern frameworks and best practices.|Problem Solving: Tackling complex challenges with efficient algorithms and scalable solutions.',
+  '2+',
+  '10+',
+  '5+',
+  '24/7'
+);
+
 -- Insert default values
 
 INSERT INTO experience (title, description) VALUES

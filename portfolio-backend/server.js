@@ -180,6 +180,20 @@ app.put('/api/contact', async (req, res) => {
   res.json({ message: 'Contact updated successfully' });
 });
 
+// ----- ABOUT -----
+app.get('/api/about', async (req, res) => {
+  const [rows] = await db.query('SELECT * FROM about LIMIT 1');
+  res.json(rows[0]);
+});
+
+app.put('/api/about', async (req, res) => {
+  const { story, what_i_do, years_learning, projects_built, technologies, learning_mode } = req.body;
+  await db.query(
+    'UPDATE about SET story=?, what_i_do=?, years_learning=?, projects_built=?, technologies=?, learning_mode=? WHERE id=1',
+    [story, what_i_do, years_learning, projects_built, technologies, learning_mode]
+  );
+  res.json({ message: 'About page updated successfully' });
+});
 
 // ===== START SERVER =====
 const PORT = process.env.PORT || 5000;

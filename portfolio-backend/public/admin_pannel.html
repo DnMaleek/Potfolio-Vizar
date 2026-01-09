@@ -6,85 +6,373 @@
 <title>Admin Panel | Portfolio</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
-  body { background: #020617; color: #e5e7eb; font-family: 'Inter', sans-serif; }
-  input, textarea { background: #1e293b; color: #e5e7eb; }
-  input::placeholder, textarea::placeholder { color: #9ca3af; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+  
+  body { 
+    background: #020617; 
+    color: #e5e7eb; 
+    font-family: 'Inter', sans-serif; 
+  }
+  
+  input, textarea, select { 
+    background: #1e293b; 
+    color: #e5e7eb;
+    border: 1px solid #334155;
+    transition: all 0.3s ease;
+  }
+  
+  input:focus, textarea:focus, select:focus { 
+    outline: none;
+    border-color: #06b6d4;
+    box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.1);
+  }
+  
+  input::placeholder, textarea::placeholder { 
+    color: #64748b; 
+  }
+  
+  .glass {
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(148, 163, 184, 0.1);
+  }
+  
+  .gradient-text {
+    background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .card-hover {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(6, 182, 212, 0.2);
+  }
+  
+  .success-message {
+    animation: slideIn 0.3s ease;
+  }
+  
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #0f172a;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #06b6d4, #0891b2);
+    border-radius: 5px;
+  }
 </style>
 </head>
-<body class="min-h-screen p-8">
+<body class="min-h-screen">
 
-<header class="mb-8">
-  <h1 class="text-3xl font-bold text-cyan-400">Portfolio Admin Panel</h1>
-  <p class="text-gray-400">Manage Hero, Skills, Projects, Experience, and Contact dynamically.</p>
+<!-- Header -->
+<header class="glass sticky top-0 z-50 border-b border-slate-700/50">
+  <div class="container mx-auto px-6 py-4">
+    <div class="flex justify-between items-center">
+      <div>
+        <h1 class="text-3xl font-black gradient-text">Portfolio Admin</h1>
+        <p class="text-gray-400 text-sm">Manage your portfolio content</p>
+      </div>
+      <a href="index.html" class="px-6 py-2 rounded-lg bg-cyan-500 hover:bg-cyan-600 text-black font-semibold transition-all duration-300 hover:scale-105">
+        View Site
+      </a>
+    </div>
+  </div>
 </header>
 
-<main class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Main Content -->
+<main class="container mx-auto px-6 py-8">
+  
+  <!-- Stats Overview -->
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+    <div class="glass p-6 rounded-xl card-hover border border-slate-700/50">
+      <div class="flex items-center gap-4">
+        <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-cyan-500 to-cyan-600 flex items-center justify-center">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+          </svg>
+        </div>
+        <div>
+          <p class="text-gray-400 text-sm">Skills</p>
+          <p id="skillsCount" class="text-2xl font-bold text-cyan-400">0</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="glass p-6 rounded-xl card-hover border border-slate-700/50">
+      <div class="flex items-center gap-4">
+        <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-cyan-500 to-cyan-600 flex items-center justify-center">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/>
+          </svg>
+        </div>
+        <div>
+          <p class="text-gray-400 text-sm">Projects</p>
+          <p id="projectsCount" class="text-2xl font-bold text-cyan-400">0</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="glass p-6 rounded-xl card-hover border border-slate-700/50">
+      <div class="flex items-center gap-4">
+        <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-cyan-500 to-cyan-600 flex items-center justify-center">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+          </svg>
+        </div>
+        <div>
+          <p class="text-gray-400 text-sm">Experience</p>
+          <p id="experienceCount" class="text-2xl font-bold text-cyan-400">0</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="glass p-6 rounded-xl card-hover border border-slate-700/50">
+      <div class="flex items-center gap-4">
+        <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-cyan-500 to-cyan-600 flex items-center justify-center">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+        </div>
+        <div>
+          <p class="text-gray-400 text-sm">Status</p>
+          <p class="text-2xl font-bold text-green-400">Active</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <!-- HERO -->
-  <section class="bg-slate-800 p-6 rounded-2xl shadow-lg">
-    <h2 class="text-xl font-semibold mb-4 text-cyan-400">Hero Section</h2>
-    <form id="heroForm" class="flex flex-col gap-3">
-      <input type="text" name="badge" placeholder="Badge" class="p-2 rounded" required>
-      <input type="text" name="title" placeholder="Title" class="p-2 rounded" required>
-      <textarea name="subtitle" placeholder="Subtitle" class="p-2 rounded" required></textarea>
-      <input type="text" name="github_url" placeholder="GitHub URL" class="p-2 rounded">
-      <button type="submit" class="bg-cyan-500 hover:bg-cyan-600 text-black p-2 rounded">Update Hero</button>
-    </form>
-    <div id="heroMessage" class="mt-2"></div>
-  </section>
+  <!-- Content Grid -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
 
-  <!-- SKILLS -->
-  <section class="bg-slate-800 p-6 rounded-2xl shadow-lg">
-    <h2 class="text-xl font-semibold mb-4 text-cyan-400">Skills</h2>
-    <form id="skillForm" class="flex flex-col gap-3 mb-4">
-      <input type="text" name="category" placeholder="Category" class="p-2 rounded" required>
-      <textarea name="description" placeholder="Description" class="p-2 rounded" required></textarea>
-      <button type="submit" class="bg-cyan-500 hover:bg-cyan-600 text-black p-2 rounded">Add Skill</button>
-    </form>
-    <div id="skillsList" class="flex flex-col gap-3"></div>
-  </section>
+    <!-- HERO SECTION -->
+    <section class="glass p-8 rounded-2xl shadow-xl card-hover border border-slate-700/50">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-500 to-cyan-600 flex items-center justify-center">
+          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/>
+          </svg>
+        </div>
+        <h2 class="text-2xl font-bold text-cyan-400">Hero Section</h2>
+      </div>
+      <form id="heroForm" class="space-y-4">
+        <div>
+          <label class="block text-sm font-semibold text-gray-400 mb-2">Badge</label>
+          <input type="text" name="badge" placeholder="e.g., Available for Work" class="w-full p-3 rounded-lg" required>
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-gray-400 mb-2">Title</label>
+          <input type="text" name="title" placeholder="Your Name / Title" class="w-full p-3 rounded-lg" required>
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-gray-400 mb-2">Subtitle</label>
+          <textarea name="subtitle" placeholder="Your tagline or description" class="w-full p-3 rounded-lg h-24" required></textarea>
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-gray-400 mb-2">GitHub URL</label>
+          <input type="url" name="github_url" placeholder="https://github.com/username" class="w-full p-3 rounded-lg">
+        </div>
+        <button type="submit" class="w-full bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-white font-bold p-3 rounded-lg transition-all duration-300 hover:scale-105">
+          Update Hero
+        </button>
+      </form>
+      <div id="heroMessage" class="mt-4"></div>
+    </section>
 
-  <!-- PROJECTS -->
-  <section class="bg-slate-800 p-6 rounded-2xl shadow-lg">
-    <h2 class="text-xl font-semibold mb-4 text-cyan-400">Projects</h2>
-    <form id="projectForm" class="flex flex-col gap-3 mb-4">
-      <input type="text" name="title" placeholder="Title" class="p-2 rounded" required>
-      <textarea name="description" placeholder="Description" class="p-2 rounded" required></textarea>
-      <input type="text" name="tech_stack" placeholder="Tech Stack" class="p-2 rounded" required>
-      <input type="text" name="thumbnail_url" placeholder="Thumbnail URL" class="p-2 rounded">
-      <input type="text" name="github_url" placeholder="GitHub URL" class="p-2 rounded">
-      <input type="text" name="live_url" placeholder="Live URL" class="p-2 rounded">
-      <button type="submit" class="bg-cyan-500 hover:bg-cyan-600 text-black p-2 rounded">Add Project</button>
-    </form>
-    <div id="projectsList" class="flex flex-col gap-3"></div>
-  </section>
+    <!-- CONTACT SECTION -->
+    <section class="glass p-8 rounded-2xl shadow-xl card-hover border border-slate-700/50">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-500 to-cyan-600 flex items-center justify-center">
+          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+          </svg>
+        </div>
+        <h2 class="text-2xl font-bold text-cyan-400">Contact Info</h2>
+      </div>
+      <form id="contactForm" class="space-y-4">
+        <div>
+          <label class="block text-sm font-semibold text-gray-400 mb-2">Email</label>
+          <input type="email" name="email" placeholder="your@email.com" class="w-full p-3 rounded-lg" required>
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-gray-400 mb-2">GitHub URL</label>
+          <input type="url" name="github_url" placeholder="https://github.com/username" class="w-full p-3 rounded-lg">
+        </div>
+        <button type="submit" class="w-full bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-white font-bold p-3 rounded-lg transition-all duration-300 hover:scale-105">
+          Update Contact
+        </button>
+      </form>
+      <div id="contactMessage" class="mt-4"></div>
+    </section>
 
-  <!-- EXPERIENCE -->
-  <section class="bg-slate-800 p-6 rounded-2xl shadow-lg">
-    <h2 class="text-xl font-semibold mb-4 text-cyan-400">Experience / Education</h2>
-    <form id="experienceForm" class="flex flex-col gap-3 mb-4">
-      <input type="text" name="title" placeholder="Title" class="p-2 rounded" required>
-      <textarea name="description" placeholder="Description" class="p-2 rounded"></textarea>
-      <button type="submit" class="bg-cyan-500 hover:bg-cyan-600 text-black p-2 rounded">Add Experience</button>
-    </form>
-    <div id="experienceList" class="flex flex-col gap-3"></div>
-  </section>
+    <!-- ABOUT PAGE SECTION -->
+    <section class="glass p-8 rounded-2xl shadow-xl card-hover border border-slate-700/50 lg:col-span-2">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-500 to-cyan-600 flex items-center justify-center">
+          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+          </svg>
+        </div>
+        <h2 class="text-2xl font-bold text-cyan-400">About Page Content</h2>
+      </div>
+      <form id="aboutForm" class="space-y-6">
+        <div>
+          <label class="block text-sm font-semibold text-gray-400 mb-2">My Story</label>
+          <textarea name="story" placeholder="Write your story here..." class="w-full p-3 rounded-lg h-32" required></textarea>
+          <p class="text-xs text-gray-500 mt-1">Tell your journey and what drives you as a developer</p>
+        </div>
+        
+        <div>
+          <label class="block text-sm font-semibold text-gray-400 mb-2">What I Do (Separate with |)</label>
+          <textarea name="what_i_do" placeholder="Backend Development: Description|Full-Stack: Description|Problem Solving: Description" class="w-full p-3 rounded-lg h-32" required></textarea>
+          <p class="text-xs text-gray-500 mt-1">Use | to separate different items. Format: Title: Description</p>
+        </div>
+        
+        <div class="grid md:grid-cols-4 gap-4">
+          <div>
+            <label class="block text-sm font-semibold text-gray-400 mb-2">Years Learning</label>
+            <input type="text" name="years_learning" placeholder="2+" class="w-full p-3 rounded-lg" required>
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-gray-400 mb-2">Projects Built</label>
+            <input type="text" name="projects_built" placeholder="10+" class="w-full p-3 rounded-lg" required>
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-gray-400 mb-2">Technologies</label>
+            <input type="text" name="technologies" placeholder="5+" class="w-full p-3 rounded-lg" required>
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-gray-400 mb-2">Learning Mode</label>
+            <input type="text" name="learning_mode" placeholder="24/7" class="w-full p-3 rounded-lg" required>
+          </div>
+        </div>
+        
+        <button type="submit" class="w-full bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-white font-bold p-3 rounded-lg transition-all duration-300 hover:scale-105">
+          Update About Page
+        </button>
+      </form>
+      <div id="aboutMessage" class="mt-4"></div>
+    </section>
 
-  <!-- CONTACT -->
-  <section class="bg-slate-800 p-6 rounded-2xl shadow-lg">
-    <h2 class="text-xl font-semibold mb-4 text-cyan-400">Contact</h2>
-    <form id="contactForm" class="flex flex-col gap-3 mb-4">
-      <input type="email" name="email" placeholder="Email" class="p-2 rounded" required>
-      <input type="text" name="github_url" placeholder="GitHub URL" class="p-2 rounded">
-      <button type="submit" class="bg-cyan-500 hover:bg-cyan-600 text-black p-2 rounded">Update Contact</button>
-    </form>
-    <div id="contactMessage" class="mt-2"></div>
-  </section>
+    <!-- SKILLS SECTION -->
+    <section class="glass p-8 rounded-2xl shadow-xl card-hover border border-slate-700/50 lg:col-span-2">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-500 to-cyan-600 flex items-center justify-center">
+          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+          </svg>
+        </div>
+        <h2 class="text-2xl font-bold text-cyan-400">Skills</h2>
+      </div>
+      <form id="skillForm" class="grid md:grid-cols-2 gap-4 mb-6">
+        <div>
+          <label class="block text-sm font-semibold text-gray-400 mb-2">Category</label>
+          <input type="text" name="category" placeholder="e.g., Backend Development" class="w-full p-3 rounded-lg" required>
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-gray-400 mb-2">Description</label>
+          <input type="text" name="description" placeholder="Brief description" class="w-full p-3 rounded-lg" required>
+        </div>
+        <button type="submit" class="md:col-span-2 bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-white font-bold p-3 rounded-lg transition-all duration-300 hover:scale-105">
+          Add Skill
+        </button>
+      </form>
+      <div id="skillsList" class="grid gap-3 max-h-96 overflow-y-auto"></div>
+    </section>
 
+    <!-- PROJECTS SECTION -->
+    <section class="glass p-8 rounded-2xl shadow-xl card-hover border border-slate-700/50 lg:col-span-2">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-500 to-cyan-600 flex items-center justify-center">
+          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/>
+          </svg>
+        </div>
+        <h2 class="text-2xl font-bold text-cyan-400">Projects</h2>
+      </div>
+      <form id="projectForm" class="grid md:grid-cols-2 gap-4 mb-6">
+        <div>
+          <label class="block text-sm font-semibold text-gray-400 mb-2">Title</label>
+          <input type="text" name="title" placeholder="Project Name" class="w-full p-3 rounded-lg" required>
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-gray-400 mb-2">Tech Stack</label>
+          <input type="text" name="tech_stack" placeholder="React, Node.js, MySQL" class="w-full p-3 rounded-lg" required>
+        </div>
+        <div class="md:col-span-2">
+          <label class="block text-sm font-semibold text-gray-400 mb-2">Description</label>
+          <textarea name="description" placeholder="Project description" class="w-full p-3 rounded-lg h-20" required></textarea>
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-gray-400 mb-2">Thumbnail URL</label>
+          <input type="text" name="thumbnail_url" placeholder="https://..." class="w-full p-3 rounded-lg">
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-gray-400 mb-2">GitHub URL</label>
+          <input type="url" name="github_url" placeholder="https://github.com/..." class="w-full p-3 rounded-lg">
+        </div>
+        <div class="md:col-span-2">
+          <label class="block text-sm font-semibold text-gray-400 mb-2">Live URL</label>
+          <input type="url" name="live_url" placeholder="https://..." class="w-full p-3 rounded-lg">
+        </div>
+        <button type="submit" class="md:col-span-2 bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-white font-bold p-3 rounded-lg transition-all duration-300 hover:scale-105">
+          Add Project
+        </button>
+      </form>
+      <div id="projectsList" class="grid gap-3 max-h-96 overflow-y-auto"></div>
+    </section>
+
+    <!-- EXPERIENCE SECTION -->
+    <section class="glass p-8 rounded-2xl shadow-xl card-hover border border-slate-700/50 lg:col-span-2">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-500 to-cyan-600 flex items-center justify-center">
+          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+          </svg>
+        </div>
+        <h2 class="text-2xl font-bold text-cyan-400">Experience & Education</h2>
+      </div>
+      <form id="experienceForm" class="grid md:grid-cols-2 gap-4 mb-6">
+        <div>
+          <label class="block text-sm font-semibold text-gray-400 mb-2">Title</label>
+          <input type="text" name="title" placeholder="Position or Degree" class="w-full p-3 rounded-lg" required>
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-gray-400 mb-2">Description</label>
+          <input type="text" name="description" placeholder="Brief description" class="w-full p-3 rounded-lg">
+        </div>
+        <button type="submit" class="md:col-span-2 bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-white font-bold p-3 rounded-lg transition-all duration-300 hover:scale-105">
+          Add Experience
+        </button>
+      </form>
+      <div id="experienceList" class="grid gap-3 max-h-96 overflow-y-auto"></div>
+    </section>
+
+  </div>
 </main>
 
 <script>
 const API_BASE = 'http://localhost:5000/api';
+
+function showMessage(elementId, message, isSuccess = true) {
+  const el = document.getElementById(elementId);
+  el.className = `success-message p-4 rounded-lg ${isSuccess ? 'bg-green-500/20 text-green-400 border border-green-500/50' : 'bg-red-500/20 text-red-400 border border-red-500/50'}`;
+  el.textContent = message;
+  setTimeout(() => el.textContent = '', 3000);
+}
 
 /* ===== HERO ===== */
 async function loadHero() {
@@ -96,66 +384,108 @@ async function loadHero() {
   form.subtitle.value = hero.subtitle || '';
   form.github_url.value = hero.github_url || '';
 }
+
 document.getElementById('heroForm').addEventListener('submit', async e => {
   e.preventDefault();
   const form = e.target;
-  const data = { badge: form.badge.value, title: form.title.value, subtitle: form.subtitle.value, github_url: form.github_url.value };
-  const res = await fetch(`${API_BASE}/hero`, { method: 'PUT', headers: {'Content-Type':'application/json'}, body: JSON.stringify(data) });
+  const data = { 
+    badge: form.badge.value, 
+    title: form.title.value, 
+    subtitle: form.subtitle.value, 
+    github_url: form.github_url.value 
+  };
+  const res = await fetch(`${API_BASE}/hero`, { 
+    method: 'PUT', 
+    headers: {'Content-Type':'application/json'}, 
+    body: JSON.stringify(data) 
+  });
   const result = await res.json();
-  document.getElementById('heroMessage').textContent = result.message;
+  showMessage('heroMessage', result.message || 'Hero updated successfully!');
 });
+
 loadHero();
 
 /* ===== SKILLS ===== */
 async function loadSkills() {
   const res = await fetch(`${API_BASE}/skills`);
   const skills = await res.json();
+  document.getElementById('skillsCount').textContent = skills.length;
   const container = document.getElementById('skillsList');
   container.innerHTML = '';
+  
   skills.forEach(s => {
     const div = document.createElement('div');
-    div.className = 'bg-slate-700 p-3 rounded flex justify-between items-center';
-    div.innerHTML = `<span>${s.category} - ${s.description}</span> <button data-id="${s.id}" class="deleteBtn bg-red-500 hover:bg-red-600 text-white p-1 rounded">Delete</button>`;
+    div.className = 'bg-slate-800/50 p-4 rounded-lg border border-slate-700/50 flex justify-between items-center hover:border-cyan-500/50 transition-all';
+    div.innerHTML = `
+      <div>
+        <h4 class="font-semibold text-cyan-400">${s.category}</h4>
+        <p class="text-sm text-gray-400 mt-1">${s.description}</p>
+      </div>
+      <button data-id="${s.id}" class="deleteSkillBtn bg-red-500/20 hover:bg-red-500 text-red-400 hover:text-white px-4 py-2 rounded-lg transition-all duration-300 border border-red-500/50">
+        Delete
+      </button>
+    `;
     container.appendChild(div);
   });
 
-  document.querySelectorAll('.deleteBtn').forEach(btn => {
+  document.querySelectorAll('.deleteSkillBtn').forEach(btn => {
     btn.addEventListener('click', async () => {
-      await fetch(`${API_BASE}/skills/${btn.dataset.id}`, { method: 'DELETE' });
-      loadSkills();
+      if (confirm('Delete this skill?')) {
+        await fetch(`${API_BASE}/skills/${btn.dataset.id}`, { method: 'DELETE' });
+        loadSkills();
+      }
     });
   });
 }
+
 document.getElementById('skillForm').addEventListener('submit', async e => {
   e.preventDefault();
   const form = e.target;
   const data = { category: form.category.value, description: form.description.value };
-  await fetch(`${API_BASE}/skills`, { method: 'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(data) });
+  await fetch(`${API_BASE}/skills`, { 
+    method: 'POST', 
+    headers:{'Content-Type':'application/json'}, 
+    body: JSON.stringify(data) 
+  });
   form.reset();
   loadSkills();
 });
+
 loadSkills();
 
 /* ===== PROJECTS ===== */
 async function loadProjects() {
   const res = await fetch(`${API_BASE}/projects`);
   const projects = await res.json();
+  document.getElementById('projectsCount').textContent = projects.length;
   const container = document.getElementById('projectsList');
   container.innerHTML = '';
+  
   projects.forEach(p => {
     const div = document.createElement('div');
-    div.className = 'bg-slate-700 p-3 rounded flex justify-between items-center';
-    div.innerHTML = `<span>${p.title}</span> <button data-id="${p.id}" class="deleteBtn bg-red-500 hover:bg-red-600 text-white p-1 rounded">Delete</button>`;
+    div.className = 'bg-slate-800/50 p-4 rounded-lg border border-slate-700/50 flex justify-between items-center hover:border-cyan-500/50 transition-all';
+    div.innerHTML = `
+      <div>
+        <h4 class="font-semibold text-cyan-400">${p.title}</h4>
+        <p class="text-sm text-gray-400 mt-1">${p.tech_stack}</p>
+      </div>
+      <button data-id="${p.id}" class="deleteProjectBtn bg-red-500/20 hover:bg-red-500 text-red-400 hover:text-white px-4 py-2 rounded-lg transition-all duration-300 border border-red-500/50">
+        Delete
+      </button>
+    `;
     container.appendChild(div);
   });
 
-  document.querySelectorAll('.deleteBtn').forEach(btn => {
+  document.querySelectorAll('.deleteProjectBtn').forEach(btn => {
     btn.addEventListener('click', async () => {
-      await fetch(`${API_BASE}/projects/${btn.dataset.id}`, { method: 'DELETE' });
-      loadProjects();
+      if (confirm('Delete this project?')) {
+        await fetch(`${API_BASE}/projects/${btn.dataset.id}`, { method: 'DELETE' });
+        loadProjects();
+      }
     });
   });
 }
+
 document.getElementById('projectForm').addEventListener('submit', async e => {
   e.preventDefault();
   const form = e.target;
@@ -167,40 +497,63 @@ document.getElementById('projectForm').addEventListener('submit', async e => {
     github_url: form.github_url.value,
     live_url: form.live_url.value
   };
-  await fetch(`${API_BASE}/projects`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(data) });
+  await fetch(`${API_BASE}/projects`, { 
+    method:'POST', 
+    headers:{'Content-Type':'application/json'}, 
+    body: JSON.stringify(data) 
+  });
   form.reset();
   loadProjects();
 });
+
 loadProjects();
 
 /* ===== EXPERIENCE ===== */
 async function loadExperience() {
   const res = await fetch(`${API_BASE}/experience`);
   const experiences = await res.json();
+  document.getElementById('experienceCount').textContent = experiences.length;
   const container = document.getElementById('experienceList');
   container.innerHTML = '';
+  
   experiences.forEach(exp => {
     const div = document.createElement('div');
-    div.className = 'bg-slate-700 p-3 rounded flex justify-between items-center';
-    div.innerHTML = `<span>${exp.title}</span> <button data-id="${exp.id}" class="deleteBtn bg-red-500 hover:bg-red-600 text-white p-1 rounded">Delete</button>`;
+    div.className = 'bg-slate-800/50 p-4 rounded-lg border border-slate-700/50 flex justify-between items-center hover:border-cyan-500/50 transition-all';
+    div.innerHTML = `
+      <div>
+        <h4 class="font-semibold text-cyan-400">${exp.title}</h4>
+        <p class="text-sm text-gray-400 mt-1">${exp.description || 'No description'}</p>
+      </div>
+      <button data-id="${exp.id}" class="deleteExpBtn bg-red-500/20 hover:bg-red-500 text-red-400 hover:text-white px-4 py-2 rounded-lg transition-all duration-300 border border-red-500/50">
+        Delete
+      </button>
+    `;
     container.appendChild(div);
   });
 
-  document.querySelectorAll('.deleteBtn').forEach(btn => {
+  document.querySelectorAll('.deleteExpBtn').forEach(btn => {
     btn.addEventListener('click', async () => {
-      await fetch(`${API_BASE}/experience/${btn.dataset.id}`, { method: 'DELETE' });
-      loadExperience();
+      if (confirm('Delete this experience?')) {
+        await fetch(`${API_BASE}/experience/${btn.dataset.id}`, { method: 'DELETE' });
+        loadExperience();
+      }
     });
   });
 }
+
 document.getElementById('experienceForm').addEventListener('submit', async e => {
   e.preventDefault();
   const form = e.target;
   const data = { title: form.title.value, description: form.description.value };
-  await fetch(`${API_BASE}/experience`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(data) });
+  await fetch(`${API_BASE}/experience`, { 
+    method:'POST', 
+    headers:{'Content-Type':'application/json'}, 
+    body: JSON.stringify(data) 
+  });
   form.reset();
   loadExperience();
 });
+
 loadExperience();
 
 /* ===== CONTACT ===== */
@@ -211,15 +564,56 @@ async function loadContact() {
   form.email.value = contact.email || '';
   form.github_url.value = contact.github_url || '';
 }
+
 document.getElementById('contactForm').addEventListener('submit', async e => {
   e.preventDefault();
   const form = e.target;
   const data = { email: form.email.value, github_url: form.github_url.value };
-  const res = await fetch(`${API_BASE}/contact`, { method:'PUT', headers:{'Content-Type':'application/json'}, body: JSON.stringify(data) });
+  const res = await fetch(`${API_BASE}/contact`, { 
+    method:'PUT', 
+    headers:{'Content-Type':'application/json'}, 
+    body: JSON.stringify(data) 
+  });
   const result = await res.json();
-  document.getElementById('contactMessage').textContent = result.message;
+  showMessage('contactMessage', result.message || 'Contact info updated successfully!');
 });
+
 loadContact();
+
+/* ===== ABOUT ===== */
+async function loadAbout() {
+  const res = await fetch(`${API_BASE}/about`);
+  const about = await res.json();
+  const form = document.getElementById('aboutForm');
+  form.story.value = about.story || '';
+  form.what_i_do.value = about.what_i_do || '';
+  form.years_learning.value = about.years_learning || '2+';
+  form.projects_built.value = about.projects_built || '10+';
+  form.technologies.value = about.technologies || '5+';
+  form.learning_mode.value = about.learning_mode || '24/7';
+}
+
+document.getElementById('aboutForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const form = e.target;
+  const data = { 
+    story: form.story.value,
+    what_i_do: form.what_i_do.value,
+    years_learning: form.years_learning.value,
+    projects_built: form.projects_built.value,
+    technologies: form.technologies.value,
+    learning_mode: form.learning_mode.value
+  };
+  const res = await fetch(`${API_BASE}/about`, { 
+    method:'PUT', 
+    headers:{'Content-Type':'application/json'}, 
+    body: JSON.stringify(data) 
+  });
+  const result = await res.json();
+  showMessage('aboutMessage', result.message || 'About page updated successfully!');
+});
+
+loadAbout();
 </script>
 
 </body>
